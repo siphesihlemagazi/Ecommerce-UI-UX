@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="mainnav">
     <nav class="navbar navbar-light bg-light">
       <div class="container-fluid">
         <a class="navbar-brand">Main Navbar</a>
@@ -15,7 +15,7 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
 
 export default {
-  name: 'App',
+  name: 'MainNav',
   components: {
     FontAwesomeIcon,
   }
