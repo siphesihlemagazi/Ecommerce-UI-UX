@@ -1,5 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import mitt from 'mitt'
+
 import "bootstrap"
 import {library} from "@fortawesome/fontawesome-svg-core" 
 import "bootstrap/dist/css/bootstrap.css"
@@ -13,4 +15,8 @@ import {
 
 library.add(faShoppingCart, faDollarSign)
 
-createApp(App).mount('#app')
+const emitter = mitt()
+const app = createApp(App)
+
+app.config.globalProperties.emitter = emitter
+app.mount('#app')
