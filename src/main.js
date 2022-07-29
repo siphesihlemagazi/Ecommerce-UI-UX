@@ -1,11 +1,11 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import router from './router'
 import mitt from 'mitt'
 
 import "bootstrap"
 import {library} from "@fortawesome/fontawesome-svg-core" 
 import "bootstrap/dist/css/bootstrap.css"
-import "animate.css/animate.css"
 
 
 import {
@@ -19,4 +19,5 @@ const emitter = mitt()
 const app = createApp(App)
 
 app.config.globalProperties.emitter = emitter
-app.mount('#app')
+
+createApp(App).use(router).mount('#app')

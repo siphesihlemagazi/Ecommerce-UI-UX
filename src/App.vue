@@ -1,22 +1,42 @@
 <template>
-  <div id="app">
-    <main-nav />
-    <cart-items :cart="cart" />
-    <product-list :cart="cart" :products="products" :addToCart="addToCart" :viewCart="viewCart" />
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Ecommerce</a>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">
+            <router-link :to="{ name: 'home' }">Home</router-link></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <router-link :to="{ name: 'products' }">Products</router-link></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <router-link :to="{ name: 'about' }">About</router-link></a>
+        </li>
+      </ul>
+      <span class="text-white">
+        <router-link :to="{ name: 'cartview' }">
+        <font-awesome-icon icon="shopping-cart"></font-awesome-icon>
+        <span class="ms-1">({{ cart.length }})</span></router-link>
+      </span>
+    </div>
   </div>
+</nav>
+  <router-view :products="products" :cart="cart" :addToCart="addToCart" />
 </template>
 
 <script>
-
-
-import ProductList from "./components/ProductList.vue"
-import CartItems from "./components/CartItems.vue"
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
+import ProductView from "./views/ProductView.vue"
 
 export default {
   name: 'App',
   components: {
-    ProductList,
-    CartItems,
+    ProductView,
+    FontAwesomeIcon,
   },
   data() {
     return {
@@ -67,3 +87,12 @@ export default {
   },
 }
 </script>
+
+<style>
+nav a.router-link-exact-active {
+  color: #42b983;
+}
+a{
+  text-decoration: none !important;
+}
+</style>
