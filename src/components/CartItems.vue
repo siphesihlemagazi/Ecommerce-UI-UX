@@ -1,5 +1,6 @@
 <template>
   <div id="cartitems">
+    {{ cart }}
    <div v-if="this.items.length>0">
     {{ this.items }}
    </div>
@@ -10,6 +11,7 @@
 
 export default {
   name: 'CartItems',
+  props: ['cart'],
   data: function () {
     return {
       items: [],
