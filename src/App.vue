@@ -1,31 +1,36 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Ecommerce</a>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">
-            <router-link :to="{ name: 'home' }">Home</router-link></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            <router-link :to="{ name: 'products' }">Products</router-link></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            <router-link :to="{ name: 'about' }">About</router-link></a>
-        </li>
-      </ul>
-      <span class="text-white">
-        <router-link :to="{ name: 'cartview' }">
-        <font-awesome-icon icon="shopping-cart"></font-awesome-icon>
-        <span class="ms-1">({{ cart.length }})</span></router-link>
-      </span>
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Ecommerce</a>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">
+              <router-link :to="{ name: 'home' }">Home</router-link>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <router-link :to="{ name: 'products' }">Products</router-link>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <router-link :to="{ name: 'about' }">About</router-link>
+            </a>
+          </li>
+        </ul>
+        <span class="text-white">
+          <router-link :to="{ name: 'cartview' }">
+            <font-awesome-icon icon="shopping-cart"></font-awesome-icon>
+            <span class="ms-1">({{ cart.length }})</span>
+          </router-link>
+        </span>
+      </div>
     </div>
-  </div>
-</nav>
-  <router-view :products="products" :cart="cart" :addToCart="addToCart" />
+  </nav>
+  <router-view :products="products" :cart="cart" :addToCart="addToCart" :increaseQTY="increaseQTY"
+    :deleteItem="deleteItem" :cartTotal="cartTotal" />
 </template>
 
 <script>
@@ -62,6 +67,15 @@ export default {
       deep: true
     }
   },
+  computed: {
+    cartTotal () {
+      let sum = 0;
+      for (var key in this.cart) {
+        sum = sum + (this.cart[key].product.price * this.cart[key].qty);
+      }
+      return sum;
+    },
+  },
   methods: {
     addToCart(product) {
       var whichProduct;
@@ -83,6 +97,19 @@ export default {
     },
     viewCart() {
       this.emitter.emit('view-cart', { 'data': this.cart })
+    },
+    deleteItem: function (id) {
+      if (this.cart[id].qty > 1) {
+        this.cart[id].qty--
+      }
+      else {
+        this.cart.splice(id, 1);
+      }
+    },
+    increaseQTY: function (id) {
+      if (this.cart[id].qty) {
+        this.cart[id].qty++
+      }
     }
   },
 }
@@ -92,7 +119,8 @@ export default {
 nav a.router-link-exact-active {
   color: #42b983;
 }
-a{
+
+a {
   text-decoration: none !important;
 }
 </style>

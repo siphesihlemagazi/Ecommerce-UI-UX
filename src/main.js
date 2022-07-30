@@ -10,10 +10,13 @@ import "bootstrap/dist/css/bootstrap.css"
 
 import {
     faShoppingCart,
-    faDollarSign
+    faDollarSign,
+    faTrashCan,
+    faPlus,
+    faMinus
 } from "@fortawesome/free-solid-svg-icons"
 
-library.add(faShoppingCart, faDollarSign)
+library.add(faShoppingCart, faDollarSign, faTrashCan, faPlus, faMinus)
 
 const emitter = mitt()
 const app = createApp(App)
