@@ -8,7 +8,10 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ item.name }}</h5>
                             <p class="card-text">{{ item.description }}</p>
-                            <button type="button" @click="addToCart(item)" class="btn btn-success">Add to cart</button>
+                            <button type="button" @click="addToCart(item)" class="btn btn-sm btn-success">
+                            <font-awesome-icon icon="shopping-cart" class="rounded-0"></font-awesome-icon>
+                            ADD TO CART
+                            </button>
                         </div>
                     </div>
                 </div>

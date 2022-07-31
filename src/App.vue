@@ -20,17 +20,22 @@
             </a>
           </li>
         </ul>
-        <span class="text-white">
-          <router-link :to="{ name: 'cartview' }">
-            <font-awesome-icon icon="shopping-cart"></font-awesome-icon>
-            <span class="ms-1">({{ cart.length }})</span>
-          </router-link>
+        <span class="text-white d-flex">
+          <a class="nav-link" href="#">
+            <router-link :to="{ name: 'orderview' }">Orders</router-link>
+          </a>
+          <a class="nav-link ms-3" href="">
+            <router-link :to="{ name: 'cartview' }">
+              <font-awesome-icon icon="shopping-cart"></font-awesome-icon>
+              <span class="ms-1">({{ cart.length }})</span>
+            </router-link>
+          </a>
         </span>
       </div>
     </div>
   </nav>
   <router-view :products="products" :cart="cart" :addToCart="addToCart" :increaseQTY="increaseQTY"
-    :deleteItem="deleteItem" :cartTotal="cartTotal" />
+    :decreaseQTY="decreaseQTY" :cartTotal="cartTotal" :createOrder="createOrder" />
 </template>
 
 <script>
@@ -47,6 +52,7 @@ export default {
     return {
       products: null,
       cart: [],
+      orders: []
     }
   },
   mounted() {
@@ -68,7 +74,7 @@ export default {
     }
   },
   computed: {
-    cartTotal () {
+    cartTotal() {
       let sum = 0;
       for (var key in this.cart) {
         sum = sum + (this.cart[key].product.price * this.cart[key].qty);
@@ -98,7 +104,7 @@ export default {
     viewCart() {
       this.emitter.emit('view-cart', { 'data': this.cart })
     },
-    deleteItem: function (id) {
+    decreaseQTY: function (id) {
       if (this.cart[id].qty > 1) {
         this.cart[id].qty--
       }
@@ -109,6 +115,21 @@ export default {
     increaseQTY: function (id) {
       if (this.cart[id].qty) {
         this.cart[id].qty++
+      }
+    },
+    createOrder: function () {
+      for (var item in this.cart) {
+        const payload = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Token authId',
+          },
+          body: JSON.stringify({ product: this.cart[item].product.id, quantity: this.cart[item].qty })
+        };
+        fetch('http://localhost:8000/api/orders/', payload)
+          .then(response => response.json())
+          .then(data => this.orderId = data.id)
       }
     }
   },

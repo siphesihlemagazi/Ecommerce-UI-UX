@@ -17,7 +17,7 @@
                         <font-awesome-icon icon="plus" class="text-muted"></font-awesome-icon>
                       </span>
                       <span class="mx-3 fw-bold">{{ item.qty }}</span>
-                      <span class="fw-bold" @click="deleteItem(index)">
+                      <span class="fw-bold" @click="decreaseQTY(index)">
                         <font-awesome-icon icon="minus" class="text-muted"></font-awesome-icon>
                       </span>
                     </div>
@@ -48,7 +48,7 @@
                   </tr>
                 </tbody>
               </table>
-              <a href="#" class="btn btn-sm btn-primary">CHECKOUT</a>
+              <a href="#" class="btn btn-sm btn-primary" @click="createOrder()">CHECKOUT</a>
             </div>
           </div>
         </div>
@@ -62,7 +62,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
 
 export default {
   name: 'CartView',
-  props: ['cart', 'deleteItem', 'increaseQTY', 'cartTotal'],
+  props: ['cart', 'decreaseQTY', 'increaseQTY', 'cartTotal', 'createOrder'],
   data() {
     return {
     }
