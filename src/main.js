@@ -13,10 +13,11 @@ import {
     faDollarSign,
     faTrashCan,
     faPlus,
-    faMinus
+    faMinus,
+    faCircleUser
 } from "@fortawesome/free-solid-svg-icons"
 
-library.add(faShoppingCart, faDollarSign, faTrashCan, faPlus, faMinus)
+library.add(faShoppingCart, faDollarSign, faTrashCan, faPlus, faMinus, faCircleUser)
 
 const emitter = mitt()
 const app = createApp(App)

@@ -21,7 +21,10 @@
           </li>
         </ul>
         <span class="text-white d-flex">
-          <a class="nav-link" href="#">
+          <a class="nav-link text-primary" href="#">
+            <font-awesome-icon icon="user-circle"></font-awesome-icon>
+          </a>
+          <a class="nav-link ms-3" href="#">
             <router-link :to="{ name: 'orderview' }">Orders</router-link>
           </a>
           <a class="nav-link ms-3" href="">
@@ -35,7 +38,7 @@
     </div>
   </nav>
   <router-view :products="products" :cart="cart" :addToCart="addToCart" :increaseQTY="increaseQTY"
-    :decreaseQTY="decreaseQTY" :cartTotal="cartTotal" :createOrder="createOrder" />
+    :decreaseQTY="decreaseQTY" :cartTotal="cartTotal" :createOrder="createOrder" :orders="orders" />
 </template>
 
 <script>
@@ -52,18 +55,20 @@ export default {
     return {
       products: null,
       cart: [],
-      orders: []
+      orders: null,
     }
   },
   mounted() {
     fetch("http://localhost:8000/api/products/")
       .then(response => response.json())
-      .then(data => {
-        this.products = data;
-      })
+      .then(data => { this.products = data })
     if (localStorage.cart) {
       this.cart = JSON.parse(localStorage.cart)
     }
+    const headers = { "Content-Type": "application/json", 'Authorization': 'Token authId', };
+    fetch("http://localhost:8000/api/orders/", { headers })
+      .then(response => response.json())
+      .then(data => { this.orders = data })
   },
   watch: {
     cart: {
