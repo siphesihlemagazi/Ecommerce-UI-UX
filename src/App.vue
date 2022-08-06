@@ -22,7 +22,9 @@
         </ul>
         <span class="text-white d-flex">
           <a class="nav-link text-primary" href="#">
-            <font-awesome-icon icon="user-circle"></font-awesome-icon>
+            <router-link :to="{ name: 'authview' }">
+              <font-awesome-icon icon="user-circle"></font-awesome-icon>
+            </router-link>
           </a>
           <a class="nav-link ms-3" href="#">
             <router-link :to="{ name: 'orderview' }">Orders</router-link>
@@ -38,7 +40,8 @@
     </div>
   </nav>
   <router-view :products="products" :cart="cart" :addToCart="addToCart" :increaseQTY="increaseQTY"
-    :decreaseQTY="decreaseQTY" :cartTotal="cartTotal" :createOrder="createOrder" :orders="orders" />
+    :decreaseQTY="decreaseQTY" :cartTotal="cartTotal" :createOrder="createOrder" :orders="orders" 
+    :viewCart="viewCart" />
 </template>
 
 <script>
@@ -65,7 +68,7 @@ export default {
     if (localStorage.cart) {
       this.cart = JSON.parse(localStorage.cart)
     }
-    const headers = { "Content-Type": "application/json", 'Authorization': 'Token authId', };
+    const headers = { "Content-Type": "application/json", 'Authorization': `Token ${JSON.parse(localStorage.user).token}` };
     fetch("http://localhost:8000/api/orders/", { headers })
       .then(response => response.json())
       .then(data => { this.orders = data })
@@ -128,7 +131,7 @@ export default {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Token authId',
+            'Authorization': `Token ${JSON.parse(localStorage.user).token}`,
           },
           body: JSON.stringify({ product: this.cart[item].product.id, quantity: this.cart[item].qty })
         };
