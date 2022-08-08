@@ -45,7 +45,8 @@ export default {
                 email: null,
                 password: null
             },
-            user: null
+            user: null,
+            errors: []
         }
     },
     mounted() {

@@ -59,16 +59,21 @@ export default {
       products: null,
       cart: [],
       orders: null,
+      authId: ''
     }
   },
   mounted() {
     fetch("http://localhost:8000/api/products/")
       .then(response => response.json())
       .then(data => { this.products = data })
+
     if (localStorage.cart) {
       this.cart = JSON.parse(localStorage.cart)
     }
-    const headers = { "Content-Type": "application/json", 'Authorization': `Token ${JSON.parse(localStorage.user).token}` };
+    if (localStorage.user) {
+      this.authId = `Token ${JSON.parse(localStorage.user).token}`
+    } 
+    const headers = { "Content-Type": "application/json", 'Authorization': this.authId };
     fetch("http://localhost:8000/api/orders/", { headers })
       .then(response => response.json())
       .then(data => { this.orders = data })
@@ -131,7 +136,7 @@ export default {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Token ${JSON.parse(localStorage.user).token}`,
+            'Authorization': this.authId,
           },
           body: JSON.stringify({ product: this.cart[item].product.id, quantity: this.cart[item].qty })
         };
@@ -139,7 +144,7 @@ export default {
           .then(response => response.json())
           .then(data => this.orderId = data.id)
       }
-    }
+    },
   },
 }
 </script>

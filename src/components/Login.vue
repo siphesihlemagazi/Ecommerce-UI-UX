@@ -1,6 +1,6 @@
 <template>
     <div class="Register">
-        <div>
+        <form>
             <p class="text-center">Login</p>
 
             <div class="form-outline mb-4">
@@ -18,15 +18,13 @@
                         <label class="form-check-label" for="loginCheck"> Remember me </label>
                     </div>
                 </div>
-
                 <div class="col-md-6 d-flex justify-content-center">
                     <a href="#!">Forgot password?</a>
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-block mb-4 w-100" @click="submitLogin(email, password)">Sign in</button>
-
-        </div>
+            <button type="submit" class="btn btn-primary btn-block mb-4 w-100" @click.prevent="submitLogin(email, password)">Sign in</button>
+        </form>
     </div>
 </template>
 
