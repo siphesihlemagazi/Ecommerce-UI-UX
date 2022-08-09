@@ -22,7 +22,7 @@
         </ul>
         <span class="text-white d-flex">
           <a class="nav-link text-primary" href="#">
-            <router-link :to="{ name: 'authview' }">
+            <router-link :to="{ name: 'loginview' }">
               <font-awesome-icon icon="user-circle"></font-awesome-icon>
             </router-link>
           </a>
@@ -39,9 +39,8 @@
       </div>
     </div>
   </nav>
-  <router-view :products="products" :cart="cart" :addToCart="addToCart" :increaseQTY="increaseQTY"
-    :decreaseQTY="decreaseQTY" :cartTotal="cartTotal" :createOrder="createOrder" :orders="orders" 
-    :viewCart="viewCart" />
+  <router-view :products="products" :cart="cart" :orders="orders" :viewCart="viewCart" :userLogin="userLogin"
+    :user="user" />
 </template>
 
 <script>
@@ -59,29 +58,37 @@ export default {
       products: null,
       cart: [],
       orders: null,
-      authId: ''
+      authId: '',
+      user: null
     }
   },
   mounted() {
+    // Products
     fetch("http://localhost:8000/api/products/")
       .then(response => response.json())
       .then(data => { this.products = data })
-
+    // Cache Cart
     if (localStorage.cart) {
       this.cart = JSON.parse(localStorage.cart)
     }
+    // Cache User
     if (localStorage.user) {
-      this.authId = `Token ${JSON.parse(localStorage.user).token}`
-    } 
-    const headers = { "Content-Type": "application/json", 'Authorization': this.authId };
-    fetch("http://localhost:8000/api/orders/", { headers })
-      .then(response => response.json())
-      .then(data => { this.orders = data })
+      this.user = JSON.parse(localStorage.user)
+    }
+    // Orders
+    this.getOrders()
   },
   watch: {
     cart: {
       handler(currentCart) {
         localStorage.cart = JSON.stringify(currentCart)
+      },
+      deep: true
+    },
+    user: {
+      handler(currentUser) {
+        localStorage.user = JSON.stringify(currentUser)
+        this.getOrders()
       },
       deep: true
     }
@@ -96,47 +103,16 @@ export default {
     },
   },
   methods: {
-    addToCart(product) {
-      var whichProduct;
-      var existing = this.cart.filter(function (item, index) {
-        if (item.product.id == Number(product.id)) {
-          whichProduct = index;
-          return true;
-        }
-        else {
-          return false;
-        }
-      });
-      if (existing.length) {
-        this.cart[whichProduct].qty++
-      }
-      else {
-        this.cart.push({ product: product, qty: 1 })
-      }
-    },
     viewCart() {
       this.emitter.emit('view-cart', { 'data': this.cart })
     },
-    decreaseQTY: function (id) {
-      if (this.cart[id].qty > 1) {
-        this.cart[id].qty--
-      }
-      else {
-        this.cart.splice(id, 1);
-      }
-    },
-    increaseQTY: function (id) {
-      if (this.cart[id].qty) {
-        this.cart[id].qty++
-      }
-    },
-    createOrder: function () {
+    createOrder() {
       for (var item in this.cart) {
         const payload = {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': this.authId,
+            'Authorization': `Token ${JSON.parse(localStorage.user).token}`,
           },
           body: JSON.stringify({ product: this.cart[item].product.id, quantity: this.cart[item].qty })
         };
@@ -145,6 +121,33 @@ export default {
           .then(data => this.orderId = data.id)
       }
     },
+    getOrders() {
+      const headers = {
+        "Content-Type": "application/json",
+        'Authorization': `Token ${JSON.parse(localStorage.user).token}`
+      }
+      fetch("http://localhost:8000/api/orders/", { headers })
+        .then(response => response.json())
+        .then(data => { this.orders = data })
+    },
+    userLogin(email, password) {
+      const payload = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email, password: password })
+      }
+      fetch('http://127.0.0.1:8000/api/auth/login/', payload)
+        .then(response => response.json())
+        .then(data => { this.user = data, this.loginRedirect(data) })
+
+    },
+    loginRedirect(response) {
+      if (response.message != 'Invalid credentials, try again') {
+        this.$router.push(this.$route.query.redirect || 'products')
+      }
+    }
   },
 }
 </script>
