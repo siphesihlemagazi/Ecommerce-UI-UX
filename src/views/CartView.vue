@@ -62,7 +62,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
 
 export default {
   name: 'CartView',
-  props: ['cart'],
+  props: ['cart', 'createOrder'],
   data() {
     return {
     }

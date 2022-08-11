@@ -39,6 +39,8 @@
       </div>
     </div>
   </nav>
+  <a @click="logout">Logout</a>
+  {{ this.user }} {{ this.authId }}
   <router-view :products="products" :cart="cart" :orders="orders" :viewCart="viewCart" :userLogin="userLogin"
     :user="user" />
 </template>
@@ -58,25 +60,28 @@ export default {
       products: null,
       cart: [],
       orders: null,
-      authId: '',
-      user: null
+      authId: null,
+      user: null,
+      isLogged: null
     }
   },
   mounted() {
-    // Products
+
     fetch("http://localhost:8000/api/products/")
       .then(response => response.json())
       .then(data => { this.products = data })
-    // Cache Cart
+
     if (localStorage.cart) {
       this.cart = JSON.parse(localStorage.cart)
     }
-    // Cache User
+
     if (localStorage.user) {
       this.user = JSON.parse(localStorage.user)
+      this.authId = `Token ${JSON.parse(localStorage.user).token}`
+      this.getOrders()
+      this.isLogged = this.user.email
     }
-    // Orders
-    this.getOrders()
+
   },
   watch: {
     cart: {
@@ -88,6 +93,7 @@ export default {
     user: {
       handler(currentUser) {
         localStorage.user = JSON.stringify(currentUser)
+        this.authId = `Token ${JSON.parse(localStorage.user).token}`
         this.getOrders()
       },
       deep: true
@@ -112,7 +118,7 @@ export default {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Token ${JSON.parse(localStorage.user).token}`,
+            'Authorization': this.authId,
           },
           body: JSON.stringify({ product: this.cart[item].product.id, quantity: this.cart[item].qty })
         };
@@ -124,7 +130,7 @@ export default {
     getOrders() {
       const headers = {
         "Content-Type": "application/json",
-        'Authorization': `Token ${JSON.parse(localStorage.user).token}`
+        'Authorization': this.authId
       }
       fetch("http://localhost:8000/api/orders/", { headers })
         .then(response => response.json())
@@ -147,6 +153,9 @@ export default {
       if (response.message != 'Invalid credentials, try again') {
         this.$router.push(this.$route.query.redirect || 'products')
       }
+    },
+    logout(){
+      localStorage.removeItem('user')
     }
   },
 }
