@@ -40,9 +40,9 @@
     </div>
   </nav>
   <a @click="logout">Logout</a>
-  {{ this.user }} {{ this.authId }}
+  {{ this.user }}
   <router-view :products="products" :cart="cart" :orders="orders" :viewCart="viewCart" :userLogin="userLogin"
-    :user="user" />
+    :user="user" :loginError="loginError" :createOrder="createOrder" />
 </template>
 
 <script>
@@ -60,9 +60,8 @@ export default {
       products: null,
       cart: [],
       orders: null,
-      authId: null,
       user: null,
-      isLogged: null
+      loginError: null
     }
   },
   mounted() {
@@ -77,9 +76,8 @@ export default {
 
     if (localStorage.user) {
       this.user = JSON.parse(localStorage.user)
-      this.authId = `Token ${JSON.parse(localStorage.user).token}`
-      this.getOrders()
-      this.isLogged = this.user.email
+      console.log("Refatch orders..!!")
+      this.getOrders(this.user.token)
     }
 
   },
@@ -93,8 +91,6 @@ export default {
     user: {
       handler(currentUser) {
         localStorage.user = JSON.stringify(currentUser)
-        this.authId = `Token ${JSON.parse(localStorage.user).token}`
-        this.getOrders()
       },
       deep: true
     }
@@ -112,13 +108,13 @@ export default {
     viewCart() {
       this.emitter.emit('view-cart', { 'data': this.cart })
     },
-    createOrder() {
+    createOrder(token) {
       for (var item in this.cart) {
         const payload = {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': this.authId,
+            'Authorization': `Token ${token}`,
           },
           body: JSON.stringify({ product: this.cart[item].product.id, quantity: this.cart[item].qty })
         };
@@ -127,10 +123,10 @@ export default {
           .then(data => this.orderId = data.id)
       }
     },
-    getOrders() {
+    getOrders(token) {
       const headers = {
         "Content-Type": "application/json",
-        'Authorization': this.authId
+        'Authorization': `Token ${token}`
       }
       fetch("http://localhost:8000/api/orders/", { headers })
         .then(response => response.json())
@@ -146,16 +142,24 @@ export default {
       }
       fetch('http://127.0.0.1:8000/api/auth/login/', payload)
         .then(response => response.json())
-        .then(data => { this.user = data, this.loginRedirect(data) })
+        .then(data => { this.login(data) })
 
     },
-    loginRedirect(response) {
+    login(response) {
       if (response.message != 'Invalid credentials, try again') {
+        this.user = response
+        this.getOrders(this.user.token)
+        localStorage.user = JSON.stringify(response)
         this.$router.push(this.$route.query.redirect || 'products')
       }
+      else {
+        this.loginError = response.message
+      }
     },
-    logout(){
+    logout() {
+      this.user, this.orders = null
       localStorage.removeItem('user')
+      this.$router.push('login')
     }
   },
 }

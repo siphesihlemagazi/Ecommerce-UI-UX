@@ -46,7 +46,7 @@
 
 export default {
     name: 'LoginView',
-    props: ['userLogin', 'user'],
+    props: ['userLogin', 'user', 'loginError'],
     data() {
         return {
             loginDetails: {
@@ -57,12 +57,12 @@ export default {
         }
     },
     watch: {
-        user: {
-        handler(currentUser) {
-            this.error = currentUser.message
-      },
-      deep: true
-    }
+        loginError: {
+            handler(error) {
+                this.error = error
+            },
+            deep: true
+        }
     },
     components: {
     },

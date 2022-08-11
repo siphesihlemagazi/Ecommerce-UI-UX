@@ -48,7 +48,7 @@
                   </tr>
                 </tbody>
               </table>
-              <a href="#" class="btn btn-sm btn-primary" @click="createOrder()">CHECKOUT</a>
+              <a href="#" class="btn btn-sm btn-primary" @click="createOrder(this.user.token)">CHECKOUT</a>
             </div>
           </div>
         </div>
@@ -62,7 +62,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
 
 export default {
   name: 'CartView',
-  props: ['cart', 'createOrder'],
+  props: ['cart', 'createOrder', 'user'],
   data() {
     return {
     }
