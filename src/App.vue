@@ -103,6 +103,9 @@ export default {
       }
       return sum;
     },
+    updateCart(){
+      
+    }
   },
   methods: {
     viewCart() {
