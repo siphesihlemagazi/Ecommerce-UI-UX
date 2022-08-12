@@ -42,7 +42,7 @@
   <a @click="logout">Logout</a>
   {{ this.user }}
   <router-view :products="products" :cart="cart" :orders="orders" :viewCart="viewCart" :userLogin="userLogin"
-    :user="user" :loginError="loginError" :createOrder="createOrder" />
+    :user="user" :authMSG="authMSG" :createOrder="createOrder" />
 </template>
 
 <script>
@@ -61,7 +61,7 @@ export default {
       cart: [],
       orders: null,
       user: null,
-      loginError: null
+      authMSG: null
     }
   },
   mounted() {
@@ -76,7 +76,7 @@ export default {
 
     if (localStorage.user) {
       this.user = JSON.parse(localStorage.user)
-      console.log("Refatch orders..!!")
+      console.log("Refetch orders..!!")
       this.getOrders(this.user.token)
     }
 
@@ -156,7 +156,7 @@ export default {
         this.$router.push(this.$route.query.redirect || 'products')
       }
       else {
-        this.loginError = response.message
+        this.authMSG = response.message
       }
     },
     logout() {

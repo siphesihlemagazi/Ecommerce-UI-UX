@@ -46,7 +46,7 @@
 
 export default {
     name: 'LoginView',
-    props: ['userLogin', 'user', 'loginError'],
+    props: ['userLogin', 'user', 'authMSG'],
     data() {
         return {
             loginDetails: {
@@ -57,7 +57,7 @@ export default {
         }
     },
     watch: {
-        loginError: {
+        authMSG: {
             handler(error) {
                 this.error = error
             },
