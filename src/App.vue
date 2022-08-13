@@ -29,7 +29,7 @@
           <a class="nav-link ms-3" href="#">
             <router-link :to="{ name: 'orderview' }">Orders</router-link>
           </a>
-          <a class="nav-link ms-3" href="">
+          <a class="nav-link ms-3" href="#">
             <router-link :to="{ name: 'cartview' }">
               <font-awesome-icon icon="shopping-cart"></font-awesome-icon>
               <span class="ms-1">({{ cart.length }})</span>
@@ -39,10 +39,10 @@
       </div>
     </div>
   </nav>
-  <a @click="logout">Logout</a>
-  {{ this.user }}
+  <!-- {{ this.user }} -->
   <router-view :products="products" :cart="cart" :orders="orders" :viewCart="viewCart" :userLogin="userLogin"
     :user="user" :authMSG="authMSG" :createOrder="createOrder" />
+  <a class="logout small bg-light p-3" @click="logout" v-if="this.user != null">Logout</a>
 </template>
 
 <script>
@@ -103,8 +103,8 @@ export default {
       }
       return sum;
     },
-    updateCart(){
-      
+    updateCart() {
+
     }
   },
   methods: {
@@ -160,7 +160,8 @@ export default {
       }
     },
     logout() {
-      this.user, this.orders = null
+      this.user = null
+      this.orders = null
       localStorage.removeItem('user')
       this.$router.push('login')
     }
@@ -175,5 +176,12 @@ nav a.router-link-exact-active {
 
 a {
   text-decoration: none !important;
+}
+
+.logout {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  cursor: pointer;
 }
 </style>

@@ -34,8 +34,12 @@
                     <button type="submit" class="btn btn-primary btn-block mb-4 w-100"
                         @click.prevent="userLogin(loginDetails.email, loginDetails.password)">Sign in</button>
 
-                    <div class="text-center small">
-                        Don't have an account? <span class="text-primary">Register</span></div>
+                    <div class="text-center small d-flex justify-content-center">
+                        Don't have an account? 
+                        <a class="nav-link ms-1" href="#">
+                            <router-link :to="{ name: 'registerview' }">Register</router-link>
+                        </a>
+                    </div>
                 </form>
             </div>
         </div>
