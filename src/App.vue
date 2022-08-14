@@ -74,7 +74,7 @@ export default {
       this.cart = JSON.parse(localStorage.cart)
     }
 
-    if (localStorage.user) {
+    if (localStorage.user!='null') {
       this.user = JSON.parse(localStorage.user)
       console.log("Refetch orders..!!")
       this.getOrders(this.user.token)

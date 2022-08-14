@@ -89,12 +89,6 @@ export default {
             this.passwordMatchError = this.password1 === this.password2 ? null : 'Password do not match'
 
             if (!this.passwordShortError && !this.passwordMatchError) {
-                console.log(this.firstName,
-                    this.lastName,
-                    this.userName,
-                    this.email,
-                    this.password1,
-                    this.password2)
 
                 const payload = {
                     method: 'POST',
@@ -113,9 +107,9 @@ export default {
         },
         register(response) {
             if (response.email) {
-                // if response.email.length > 0 mean registration was successful or its an error msg
+                // if response.email.length === 1 mean registration was successful or its an error msg
                 if (response.email.length === 1) {
-                    return this.registerResponse = response.email[0]
+                    return this.registerResponse = `A ${response.email[0]}`
                 }
                 else {
                     this.registerResponse = "Account was created successfully"
