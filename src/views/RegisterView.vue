@@ -107,7 +107,7 @@ export default {
         },
         register(response) {
             if (response.email) {
-                // if response.email.length === 1 mean registration was successful or its an error msg
+                // if response.email.length === 1 mean registration was successful else it's an error msg
                 if (response.email.length === 1) {
                     return this.registerResponse = `A ${response.email[0]}`
                 }

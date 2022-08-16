@@ -37,14 +37,18 @@
               <table class="table table-borderless">
                 <thead>
                   <tr>
+                    <th scope="col">ITEMS</th>
+                    <th scope="col">{{ this.cartQty }}</th>
+                  </tr>
+                  <tr>
                     <th scope="col">Subtotal</th>
-                    <th scope="col">R100.99</th>
+                    <th scope="col">R{{ this.cartPrice }}.00</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <th scope="row">Total <span class="fw-light">(including VAT)</span>:</th>
-                    <th>R100.99</th>
+                    <th>R{{ this.cartPrice }}.00</th>
                   </tr>
                 </tbody>
               </table>
@@ -69,6 +73,22 @@ export default {
   },
   components: {
     FontAwesomeIcon
+  },
+  computed: {
+    cartPrice() {
+      let total = 0
+      for (var key in this.cart) {
+        total += (this.cart[key].product.price * this.cart[key].qty)
+      }
+      return total
+    },
+    cartQty() {
+      let total = 0;
+      for (var key in this.cart) {
+        total += (this.cart[key].qty)
+      }
+      return total
+    }
   },
   methods: {
     decreaseQTY: function (id) {

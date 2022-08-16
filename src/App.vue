@@ -39,7 +39,6 @@
       </div>
     </div>
   </nav>
-  <!-- {{ this.user }} -->
   <router-view :products="products" :cart="cart" :orders="orders" :viewCart="viewCart" :userLogin="userLogin"
     :user="user" :authMSG="authMSG" :createOrder="createOrder" />
   <a class="logout small bg-light p-3" @click="logout" v-if="this.user != null">Logout</a>
@@ -96,16 +95,6 @@ export default {
     }
   },
   computed: {
-    cartTotal() {
-      let sum = 0;
-      for (var key in this.cart) {
-        sum = sum + (this.cart[key].product.price * this.cart[key].qty);
-      }
-      return sum;
-    },
-    updateCart() {
-
-    }
   },
   methods: {
     viewCart() {
