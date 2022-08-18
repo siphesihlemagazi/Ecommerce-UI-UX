@@ -4,16 +4,19 @@
 
             <nav class="navbar navbar-expand-lg navbar-white bg-white mb-4">
                 <div class="container-fluid p-0">
-                    <a class="navbar-brand me-5" href="#">FILTER BY CATEGORIES:</a>
+                    <a class="navbar-brand me-5" href="#">FILTER BY:</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#ProductFilter" aria-controls="ProductFilter"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+                        data-bs-target="#ProductFilter" aria-controls="ProductFilter" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <font-awesome-icon icon="filter"></font-awesome-icon>
                     </button>
                     <div class="collapse navbar-collapse" id="ProductFilter">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item me-5">
-                                <a class="nav-link active" aria-current="page" href="#">Clothing</a>
+                                <a class="nav-link active" aria-current="page" href="#">All products</a>
+                            </li>
+                            <li class="nav-item me-5">
+                                <a class="nav-link" href="#">Clothing</a>
                             </li>
                             <li class="nav-item me-5">
                                 <a class="nav-link" href="#">Groceries</a>
@@ -28,7 +31,9 @@
                         <form class="d-flex">
                             <input type="search" class="form-control rounded" placeholder="Search product"
                                 v-model="search" />
-                            <button type="button" class="btn btn-outline-primary">Search</button>
+                            <button type="button" class="btn btn-primary">
+                                <font-awesome-icon icon="magnifying-glass"></font-awesome-icon>
+                            </button>
                         </form>
                     </div>
                 </div>

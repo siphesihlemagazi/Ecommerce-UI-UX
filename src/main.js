@@ -4,7 +4,7 @@ import router from './router'
 import mitt from 'mitt'
 
 import "bootstrap"
-import {library} from "@fortawesome/fontawesome-svg-core" 
+import { library } from "@fortawesome/fontawesome-svg-core"
 import "bootstrap/dist/css/bootstrap.css"
 
 
@@ -14,10 +14,12 @@ import {
     faTrashCan,
     faPlus,
     faMinus,
-    faCircleUser
+    faCircleUser,
+    faFilter,
+    faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons"
 
-library.add(faShoppingCart, faDollarSign, faTrashCan, faPlus, faMinus, faCircleUser)
+library.add(faShoppingCart, faDollarSign, faTrashCan, faPlus, faMinus, faCircleUser, faFilter, faMagnifyingGlass)
 
 const emitter = mitt()
 const app = createApp(App)
