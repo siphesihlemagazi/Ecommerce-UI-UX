@@ -13,19 +13,19 @@
                     <div class="collapse navbar-collapse" id="ProductFilter">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item me-5">
-                                <a class="nav-link active" aria-current="page" href="#">All products</a>
+                                <a class="nav-link active" href="#" @click.prevent="this.search = ''">All products</a>
                             </li>
                             <li class="nav-item me-5">
-                                <a class="nav-link" href="#">Clothing</a>
+                                <a class="nav-link" href="#" @click.prevent="this.search = 'Clothing'">Clothing</a>
                             </li>
                             <li class="nav-item me-5">
-                                <a class="nav-link" href="#">Groceries</a>
+                                <a class="nav-link" href="#" @click.prevent="this.search = 'Food'">Groceries</a>
                             </li>
                             <li class="nav-item me-5">
-                                <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">New Arrivals</a>
+                                <a class="nav-link" href="#" @click.prevent="this.search = 'New Arrivals'">New Arrivals</a>
                             </li>
                             <li class="nav-item me-5">
-                                <a class="nav-link" href="#">Trending</a>
+                                <a class="nav-link" href="#" @click.prevent="this.search = 'Trending'">Trending</a>
                             </li>
                         </ul>
                         <form class="d-flex">
@@ -80,7 +80,8 @@ export default {
         filteredProducts() {
             if (this.products) {
                 return this.products.filter((product) => {
-                    return product.name.toLowerCase().match(this.search.toLowerCase())
+                    return product.name.toLowerCase().match(this.search.toLowerCase()) || 
+                    product.category_name.toLowerCase().match(this.search.toLowerCase())
                 })
             }
         }
