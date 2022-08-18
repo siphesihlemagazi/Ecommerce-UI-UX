@@ -2,40 +2,55 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Ecommerce</a>
-      <div class="collapse navbar-collapse" id="navbarText">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#MainNavigation"
+        aria-controls="MainNavigation" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="MainNavigation">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">
-              <router-link :to="{ name: 'home' }">Home</router-link>
-            </a>
+            <a class="nav-link" href="#"><router-link :to="{ name: 'home' }">Home</router-link></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              <router-link :to="{ name: 'products' }">Products</router-link>
-            </a>
+            <a class="nav-link" href="#"><router-link :to="{ name: 'products' }">Products</router-link></a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <router-link :to="{ name: 'about' }">About</router-link>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              More
             </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#"><router-link :to="{ name: 'about' }">About</router-link></a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
           </li>
         </ul>
-        <span class="text-white d-flex">
-          <a class="nav-link text-primary" href="#">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link text-primary" href="#">
             <router-link :to="{ name: 'loginview' }">
               <font-awesome-icon icon="user-circle"></font-awesome-icon>
             </router-link>
           </a>
-          <a class="nav-link ms-3" href="#">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
             <router-link :to="{ name: 'orderview' }">Orders</router-link>
           </a>
-          <a class="nav-link ms-3" href="#">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
             <router-link :to="{ name: 'cartview' }">
               <font-awesome-icon icon="shopping-cart"></font-awesome-icon>
               <span class="ms-1">({{ cart.length }})</span>
             </router-link>
           </a>
-        </span>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
@@ -73,7 +88,7 @@ export default {
       this.cart = JSON.parse(localStorage.cart)
     }
 
-    if (localStorage.user!='null') {
+    if (localStorage.user != 'null') {
       this.user = JSON.parse(localStorage.user)
       console.log("Refetch orders..!!")
       this.getOrders(this.user.token)

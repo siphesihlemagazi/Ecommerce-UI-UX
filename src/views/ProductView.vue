@@ -1,8 +1,41 @@
 <template>
     <div id="products">
         <div class="container mt-5 mb-5">
+
+            <nav class="navbar navbar-expand-lg navbar-white bg-white mb-4">
+                <div class="container-fluid p-0">
+                    <a class="navbar-brand me-5" href="#">FILTER BY CATEGORIES:</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#ProductFilter" aria-controls="ProductFilter"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="ProductFilter">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item me-5">
+                                <a class="nav-link active" aria-current="page" href="#">Clothing</a>
+                            </li>
+                            <li class="nav-item me-5">
+                                <a class="nav-link" href="#">Groceries</a>
+                            </li>
+                            <li class="nav-item me-5">
+                                <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">New Arrivals</a>
+                            </li>
+                            <li class="nav-item me-5">
+                                <a class="nav-link" href="#">Trending</a>
+                            </li>
+                        </ul>
+                        <form class="d-flex">
+                            <input type="search" class="form-control rounded" placeholder="Search product"
+                                v-model="search" />
+                            <button type="button" class="btn btn-outline-primary">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+
             <div class="row row-cols-1 row-cols-md-3 g-4">
-                <div class="col" v-for="(item, index) in products" :key="index">
+                <div class="col" v-for="(item, index) in filteredProducts" :key="index">
                     <div class="card rounded-0 h-100">
                         <img :src="item.image" class="card-img-top rounded-0" alt="...">
                         <div class="card-body">
@@ -32,10 +65,20 @@ export default {
     props: ['cart', 'products', 'viewCart'],
     data() {
         return {
+            search: "",
         }
     },
     components: {
         FontAwesomeIcon,
+    },
+    computed: {
+        filteredProducts() {
+            if (this.products) {
+                return this.products.filter((product) => {
+                    return product.name.toLowerCase().match(this.search.toLowerCase())
+                })
+            }
+        }
     },
     methods: {
         addToCart(product) {
