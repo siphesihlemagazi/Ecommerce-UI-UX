@@ -1,7 +1,7 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light text-uppercase">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Ecommerce</a>
+      <a class="navbar-brand" href="#">ECOMchar</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#MainNavigation"
         aria-controls="MainNavigation" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -9,10 +9,14 @@
       <div class="collapse navbar-collapse" id="MainNavigation">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="#"><router-link :to="{ name: 'home' }">Home</router-link></a>
+            <a class="nav-link" href="#">
+              <router-link :to="{ name: 'home' }">Home</router-link>
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><router-link :to="{ name: 'products' }">Products</router-link></a>
+            <a class="nav-link" href="#">
+              <router-link :to="{ name: 'products' }">Products</router-link>
+            </a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
@@ -20,7 +24,9 @@
               More
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#"><router-link :to="{ name: 'about' }">About</router-link></a></li>
+              <li><a class="dropdown-item" href="#">
+                  <router-link :to="{ name: 'about' }">About</router-link>
+                </a></li>
               <li><a class="dropdown-item" href="#">Another action</a></li>
               <li>
                 <hr class="dropdown-divider">
@@ -32,23 +38,23 @@
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link text-primary" href="#">
-            <router-link :to="{ name: 'loginview' }">
-              <font-awesome-icon icon="user-circle"></font-awesome-icon>
-            </router-link>
-          </a>
+              <router-link :to="{ name: 'loginview' }">
+                <font-awesome-icon icon="user-circle"></font-awesome-icon>
+              </router-link>
+            </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
-            <router-link :to="{ name: 'orderview' }">Orders</router-link>
-          </a>
+              <router-link :to="{ name: 'orderview' }">Orders</router-link>
+            </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
-            <router-link :to="{ name: 'cartview' }">
-              <font-awesome-icon icon="shopping-cart"></font-awesome-icon>
-              <span class="ms-1">({{ cart.length }})</span>
-            </router-link>
-          </a>
+              <router-link :to="{ name: 'cartview' }">
+                <font-awesome-icon icon="shopping-cart"></font-awesome-icon>
+                <span class="ms-1">({{ cart.length }})</span>
+              </router-link>
+            </a>
           </li>
         </ul>
       </div>
@@ -174,6 +180,13 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap');
+
+* {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+}
+
 nav a.router-link-exact-active {
   color: #42b983;
 }
