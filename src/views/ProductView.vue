@@ -29,9 +29,9 @@
                             </li>
                         </ul>
                         <form class="d-flex">
-                            <input type="search" class="form-control rounded" placeholder="Search product"
+                            <input type="search" class="form-control rounded-0" placeholder="Search product"
                                 v-model="search" />
-                            <button type="button" class="btn btn-primary">
+                            <button type="button" class="btn btn-primary rounded-0">
                                 <font-awesome-icon icon="magnifying-glass"></font-awesome-icon>
                             </button>
                         </form>
