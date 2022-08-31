@@ -122,7 +122,8 @@ export default {
       this.emitter.emit('view-cart', { 'data': this.cart })
     },
     createOrder(token) {
-      for (var item in this.cart) {
+      console.log("Creating order...")
+      for (let item in this.cart) {
         const payload = {
           method: 'POST',
           headers: {
@@ -142,8 +143,18 @@ export default {
         'Authorization': `Token ${token}`
       }
       fetch("http://localhost:8000/api/orders/", { headers })
-        .then(response => response.json())
+        .then((response) => {
+          if (!response.ok) {
+            expiredToken(response)
+          }
+          return response.json()
+        })
         .then(data => { this.orders = data })
+    },
+    expiredToken(response) {
+      if (response.status === 403) {
+        this.logout()
+      }
     },
     userLogin(email, password) {
       const payload = {
@@ -159,7 +170,8 @@ export default {
 
     },
     login(response) {
-      if (response.message != 'Invalid credentials, try again') {
+      console.log(response.message)
+      if (response.message != 'Invalid credentials, try again.') {
         this.user = response
         this.getOrders(this.user.token)
         localStorage.user = JSON.stringify(response)
