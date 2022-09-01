@@ -2,9 +2,9 @@
     <div id="products">
         <div class="container mt-5 mb-5">
 
-            <nav class="navbar navbar-expand-lg navbar-white bg-white mb-4">
+            <nav class="navbar navbar-expand-lg navbar-white bg-white mb-4 text-uppercase">
                 <div class="container-fluid p-0">
-                    <a class="navbar-brand me-5" href="#">FILTER BY:</a>
+                    <span class="me-5 text-success" href="#">FILTERS:</span>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#ProductFilter" aria-controls="ProductFilter" aria-expanded="false"
                         aria-label="Toggle navigation">
@@ -29,9 +29,9 @@
                             </li>
                         </ul>
                         <form class="d-flex">
-                            <input type="search" class="form-control rounded" placeholder="Search product"
+                            <input type="search" class="form-control rounded-0" placeholder="Search product"
                                 v-model="search" />
-                            <button type="button" class="btn btn-primary">
+                            <button type="button" class="btn btn-primary rounded-0">
                                 <font-awesome-icon icon="magnifying-glass"></font-awesome-icon>
                             </button>
                         </form>

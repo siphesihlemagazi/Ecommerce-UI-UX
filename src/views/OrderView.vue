@@ -1,6 +1,12 @@
 <template>
   <div class="OrderView">
     <div class="container mt-5 mb-5">
+      <div class="mb-3">
+        <div class="text-start text-black text-center">
+          <h5>ALL YOUR ORDERS</h5>
+        </div>
+      </div>
+
       <div class="border mb-3" v-for="(order, index) in orders" :key="index">
         <div class="text-start text-black p-4">
           <div class="small text-muted mb-4">
