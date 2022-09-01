@@ -1,10 +1,9 @@
 <template>
   <div class="OrderView">
     <div class="container mt-5 mb-5">
-      <div class="border mb-3">
-        <div class="text-start text-black p-4 bg-light">
-          <h5 v-if="orders.length>0">ALL YOUR ORDERS</h5>
-          <h5 v-if="orders.length<1">YOU HAVR NO ORDERS</h5>
+      <div class="mb-3">
+        <div class="text-start text-black text-center">
+          <h5>ALL YOUR ORDERS</h5>
         </div>
       </div>
 
