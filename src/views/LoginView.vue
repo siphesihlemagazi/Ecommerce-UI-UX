@@ -1,8 +1,8 @@
 <template>
     <div class="LoginView container mt-5 d-flex justify-content-center">
-        <div class="card " style="width: 18rem;">
+        <div class="card ">
             <div class="card-header text-center fw-bold">
-                LOGIN
+                LOGIN TO ECOMMERCE
             </div>
             <div class="card-body">
                 <p class="alert alert-warning small text-center" role="alert" v-if="this.error">
@@ -23,10 +23,10 @@
                         <div class="col-md-6 d-flex justify-content-center small">
                             <div class="form-check mb-3 mb-md-0">
                                 <input class="form-check-input" type="checkbox" value="" id="loginCheck" checked />
-                                <label class="form-check-label" for="loginCheck"> Remember me </label>
+                                <label class="form-check-label text-nowrap" for="loginCheck"> Remember me </label>
                             </div>
                         </div>
-                        <div class="col-md-6 d-flex justify-content-center small text-primary">
+                        <div class="col-md-6 d-flex justify-content-center small text-primary text-nowrap">
                             Forgot password?
                         </div>
                     </div>

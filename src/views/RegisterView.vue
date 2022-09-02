@@ -1,8 +1,8 @@
 <template>
     <div class="Register container d-flex justify-content-center mb-5 mt-5">
-        <div class="card" style="width: 18rem;">
+        <div class="card">
             <div class="card-header text-center fw-bold">
-                REGISTER
+                REGISTER TO ECOMMERCE
             </div>
             <div class="card-body">
                 <p class="alert alert-warning small text-center" role="alert" v-if="this.registerResponse">
@@ -46,7 +46,7 @@
                     <div class="form-check d-flex justify-content-center small mb-4">
                         <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" checked
                             aria-describedby="registerCheckHelpText" />
-                        <label class="form-check-label" for="registerCheck">
+                        <label class="form-check-label text-nowrap" for="registerCheck">
                             I have read and agree to the terms
                         </label>
                     </div>
