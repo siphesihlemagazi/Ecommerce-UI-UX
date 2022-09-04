@@ -60,8 +60,8 @@
       </div>
     </div>
   </nav>
-  <router-view :products="products" :cart="cart" :orders="orders" :viewCart="viewCart" :userLogin="userLogin"
-    :user="user" :authMSG="authMSG" :createOrder="createOrder" />
+  <router-view :products="products" :productDetails="productDetails" :getProductDetails="getProductDetails" :cart="cart" 
+  :orders="orders" :viewCart="viewCart" :userLogin="userLogin" :user="user" :authMSG="authMSG" :createOrder="createOrder" />
   <a class="logout small bg-light p-3" @click="logout" v-if="this.user != null">Logout</a>
 </template>
 
@@ -78,6 +78,7 @@ export default {
   data() {
     return {
       products: null,
+      productDetails: null,
       cart: [],
       orders: null,
       user: null,
@@ -89,6 +90,10 @@ export default {
     fetch("http://localhost:8000/api/products/")
       .then(response => response.json())
       .then(data => { this.products = data })
+
+    if (localStorage.productDetails) {
+      this.productDetails = JSON.parse(localStorage.productDetails)
+    }
 
     if (localStorage.cart) {
       this.cart = JSON.parse(localStorage.cart)
@@ -102,6 +107,12 @@ export default {
 
   },
   watch: {
+    productDetails: {
+      handler(currentProduct) {
+        localStorage.productDetails = JSON.stringify(currentProduct)
+      },
+      deep: true
+    },
     cart: {
       handler(currentCart) {
         localStorage.cart = JSON.stringify(currentCart)
@@ -118,6 +129,12 @@ export default {
   computed: {
   },
   methods: {
+    getProductDetails(product) {
+      fetch("http://localhost:8000/api/products/details/?product=" + product)
+        .then(response => response.json())
+        .then(data => { this.productDetails = data })
+        this.$router.push(this.$route.query.redirect || 'product-details')
+    },
     viewCart() {
       this.emitter.emit('view-cart', { 'data': this.cart })
     },

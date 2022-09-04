@@ -6,6 +6,7 @@ import CartView from '../views/CartView.vue'
 import OrderView from '../views/OrderView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
+import ProductDetailsView from '../views/ProductDetailsView.vue'
 
 const routes = [
   {
@@ -17,6 +18,11 @@ const routes = [
     path: '/products',
     name: 'products',
     component: ProductView
+  },
+  {
+    path: '/product-details',
+    name: 'productdetailsview',
+    component: ProductDetailsView
   },
   {
     path: '/cart',

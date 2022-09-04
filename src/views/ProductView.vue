@@ -41,7 +41,7 @@
 
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <div class="col" v-for="(item, index) in filteredProducts" :key="index">
-                    <div class="card rounded-0 h-100">
+                    <div @click.prevent="getProductDetails(item.id)" class="card rounded-0 h-100" style="cursor:pointer">
                         <img :src="item.image" class="card-img-top rounded-0" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">{{ item.name }}
@@ -67,7 +67,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
 
 export default {
     name: 'Products',
-    props: ['cart', 'products', 'viewCart'],
+    props: ['cart', 'products', 'viewCart', 'getProductDetails'],
     data() {
         return {
             search: "",
