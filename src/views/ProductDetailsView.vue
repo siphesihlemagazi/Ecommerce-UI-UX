@@ -1,6 +1,6 @@
 <template>
     <div class="ProductDetails container mt-5 mb-5">
-        <h1 class="text-center mb-5">{{ productDetails[0].name }} Details</h1>
+        <h4 class="text-center mb-5 text-uppercase text-success">{{ productDetails[0].name }}</h4>
         <div class="row justify-content-center">
             <div class="product" style="width:fit-content">
                 <div class="card mb-3 border-0">
@@ -10,9 +10,7 @@
                         </div>
                         <div class="col">
                             <div class="card-body">
-                                <h5 class="card-title">{{ productDetails[0].name }}
-                                    <span class="fw-bold float-end">R{{ productDetails[0].price }}.00</span>
-                                </h5>
+                                <h5 class="card-title">R{{ productDetails[0].price }}.00</h5>
                                 <p class="card-text">{{ productDetails[0].description }}</p>
                                 <p class="card-text">Stock: {{ productDetails[0].stock }}</p>
                                 <p class="card-text">Quantity: {{ productDetails[0].stock }}</p>
